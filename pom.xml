@@ -22,9 +22,16 @@
     <scm>
         <connection>scm:git:https://github.com/boozallen/booz-allen-maven-licenses.git</connection>
         <developerConnection>scm:git:https://github.com/boozallen/booz-allen-maven-licenses.git</developerConnection>
-        <url>ttps://github.com/boozallen/booz-allen-maven-licenses</url>
+        <url>https://github.com/boozallen/booz-allen-maven-licenses</url>
         <tag>HEAD</tag>
     </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </distributionManagement>
 
     <organization>
         <name>Booz Allen Hamilton Inc.</name>
@@ -37,6 +44,7 @@
             <name>aiSSEMBLE Baseline Community</name>
             <organization>Booz Allen Hamilton</organization>
             <organizationUrl>https://boozallen.com</organizationUrl>
+            <email>aissemble@bah.com</email>
         </developer>
     </developers>
 
@@ -52,7 +60,8 @@
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <version.habushu.plugin>2.12.1</version.habushu.plugin>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.habushu.plugin>2.13.0</version.habushu.plugin>
     </properties>
 
     <modules>
@@ -61,6 +70,28 @@
     </modules>
 
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.3</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -70,17 +101,43 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.6.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>3.2.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>3.0.1</version>
                     <configuration>
-                        <scmCommentPrefix>:bookmark: [maven-release-plugin]</scmCommentPrefix>
-                        <projectVersionPolicyId>SemVerVersionPolicy</projectVersionPolicyId>
-                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <releaseProfiles>ossrh-release</releaseProfiles>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${version.nexus.staging.plugin}</version>
+                    <configuration>
+                        <serverId>ossrh</serverId>
+                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                        <!-- Automatically release staging repository and make deployed artifacts available on
+                             Maven Central. This mitigates the need to manually log into the OSSRH Nexus instance
+                             and release the staging repository -->
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
                     </configuration>
                 </plugin>
             </plugins>
@@ -89,24 +146,53 @@
 
     <profiles>
         <profile>
-            <id>ci</id>
+            <id>ossrh-release</id>
+            <modules>
+                <module>booz-allen-licenses</module>
+            </modules>
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.technologybrewery.habushu</groupId>
-                            <artifactId>habushu-maven-plugin</artifactId>
-                            <version>${version.habushu.plugin}</version>
-                            <configuration>
-                                <deleteVirtualEnv>true</deleteVirtualEnv>
-                                <forceSync>true</forceSync>
-                                <decryptPassword>false</decryptPassword>
-                                <rewriteLocalPathDepsInArchives>true</rewriteLocalPathDepsInArchives>
-                                <addPypiRepoAsPackageSources>false</addPypiRepoAsPackageSources>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

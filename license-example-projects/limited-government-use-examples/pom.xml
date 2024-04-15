@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.boozallen.aissemble</groupId>
+		<artifactId>license-example-projects</artifactId>
+		<version>1.2.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>limited-government-use-examples</artifactId>
+	<packaging>pom</packaging>
+
+	<name>aiSSEMBLE License::Limited Government Use</name>
+	<description>Provides examples of how to use this capability on limited Government use projects</description>
+
+	<modules>
+		<module>booz-allen-limited-government-use-java</module>
+		<module>booz-allen-limited-government-use-python</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<configuration>
+						<licenseName>limited-government-client-use-license</licenseName>
+						<extraTemplateParameters>
+							<contractNumber>C1234567890</contractNumber>
+							<licenseNumber>L-9876321</licenseNumber>
+						</extraTemplateParameters>
+
+						<!-- 
+						  Assuming your organization in your Maven file is not Booz Allen, 
+						  you won't need to specify this. For this test case, it is Booz Allen, 
+						  so we are overriding here: 
+					  -->
+						<organizationName>Ministry of Magic</organizationName>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

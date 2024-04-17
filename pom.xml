@@ -12,6 +12,7 @@
     <description>Provides Booz Allen-specific Licensing Best Practices and Custom Licenses for use with the
         license-maven-plugin
     </description>
+    <url>https://github.com/boozallen/booz-allen-maven-licenses</url>
     <inceptionYear>2021</inceptionYear>
 
     <issueManagement>
@@ -27,6 +28,10 @@
     </scm>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
             <id>ossrh</id>
             <url>https://s01.oss.sonatype.org/content/repositories/releases/</url>
@@ -64,13 +69,13 @@
         <version.habushu.plugin>2.13.0</version.habushu.plugin>
     </properties>
 
-    <modules>
-        <module>booz-allen-licenses</module>
-        <module>license-example-projects</module>
-    </modules>
-
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -125,15 +130,16 @@
                     <version>3.0.1</version>
                     <configuration>
                         <releaseProfiles>ossrh-release</releaseProfiles>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.sonatype.plugins</groupId>
                     <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${version.nexus.staging.plugin}</version>
+                    <version>1.6.13</version>
                     <configuration>
                         <serverId>ossrh</serverId>
-                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                         <!-- Automatically release staging repository and make deployed artifacts available on
                              Maven Central. This mitigates the need to manually log into the OSSRH Nexus instance
                              and release the staging repository -->
@@ -145,6 +151,16 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>booz-allen-licenses</module>
+                <module>license-example-projects</module>
+            </modules>
+        </profile>
         <profile>
             <id>ossrh-release</id>
             <modules>

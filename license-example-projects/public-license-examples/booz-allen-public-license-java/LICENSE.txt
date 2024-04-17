@@ -2,7 +2,7 @@ Booz Allen Public License v1.0
 ------------------------------
 
 INTRODUCTION
-The Booz Allen Public License allows government, non-profit academic, other non-profit, and commercial entities access to distinctive, disruptive, and robust code with the goal of Empowering People to Change the World&#8480;. Products licensed under the Booz Allen Public License are founded on the basis that collective ingenuity can make the largest impact in the community. 
+The Booz Allen Public License allows government, non-profit academic, other non-profit, and commercial entities access to distinctive, disruptive, and robust code with the goal of Empowering People to Change the World(SM). Products licensed under the Booz Allen Public License are founded on the basis that collective ingenuity can make the largest impact in the community.
 
 DEFINITIONS
 * **Commercial Entity.** “Commercial Entity” means any individual or entity other than a government, non-profit academic, or other non-profit entity.

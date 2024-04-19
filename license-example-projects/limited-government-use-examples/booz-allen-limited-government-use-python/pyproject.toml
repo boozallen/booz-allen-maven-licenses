@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "booz-allen-limited-government-use-python"
-version = "1.2.0.dev"
+version = "1.3.0.dev"
 description = ""
 authors = ["Your Name <you@example.com>"]
 

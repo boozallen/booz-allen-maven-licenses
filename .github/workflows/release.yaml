@@ -54,7 +54,7 @@ jobs:
                   git config --local user.name "Github Actions"
                   git checkout -b ${{ inputs.releaseVersion }}-release
                   mvn -B release:clean release:prepare release:perform -Possrh-release -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} -Darguments="-Dhabushu.usePyenv=false"
-                  mvn versions:set -DnewVersion=${{ inputs.developmentVersion }} -DgenerateBackupPoms=false
+                  mvn release:update-versions -DdevelopmentVersion=${{ inputs.developmentVersion }}
                   mvn clean install -Dhabushu.usePyenv=false
                   mvn scm:checkin -Dmessage=":arrow_up: push example modules to version ${{ inputs.developmentVersion }}"
               env:

@@ -7,9 +7,10 @@ authors = ["Your Name <you@example.com>"]
 [tool.poetry.dependencies]
 python = "^3.11"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 behave = "^1.2.6"
 black = ">=24.3.0"
+pylint = "^3.3.1"
 
 [build-system]
 requires = ["poetry-core >= 1.6.0"]

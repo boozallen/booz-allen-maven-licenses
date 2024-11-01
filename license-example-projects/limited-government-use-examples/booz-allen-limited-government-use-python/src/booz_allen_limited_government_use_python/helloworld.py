@@ -9,7 +9,7 @@
 # protection under the laws of the United States and other countries. You may not, copy,
 # reproduce, distribute, publish, display, execute, modify, create derivative works of,
 # transmit, sell or offer for resale, or in any way exploit any part of this solution
-# without Booz Allen Hamilton’s express written permission. This solution is subject to
+# without Booz Allen Hamilton's express written permission. This solution is subject to
 # the license restrictions noted in Contract No. C1234567890,
 # License No. L-9876321. This solution may be used only within
 # Ministry of Magic.  This solution may not be used or disclosed outside the

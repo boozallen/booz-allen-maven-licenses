@@ -65,7 +65,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.habushu.plugin>2.13.0</version.habushu.plugin>
+        <version.habushu.plugin>2.17.0</version.habushu.plugin>
     </properties>
 
     <build>

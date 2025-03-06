@@ -19,6 +19,7 @@
 		<module>closed-source-examples</module>
 		<module>government-use-examples</module>
 		<module>limited-government-use-examples</module>
+		<module>specific-client-license-examples</module>
 	</modules>
 
 	<build>

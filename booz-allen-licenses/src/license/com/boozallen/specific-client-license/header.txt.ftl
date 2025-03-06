@@ -1,0 +1,1 @@
+This solution may be used only within ${organizationName} or with their express written consent.

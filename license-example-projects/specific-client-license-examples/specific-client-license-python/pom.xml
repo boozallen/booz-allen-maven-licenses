@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.boozallen.aissemble</groupId>
+		<artifactId>specific-client-license-examples</artifactId>
+		<version>1.2.2-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>specific-client-license-python</artifactId>
+	<packaging>habushu</packaging>
+
+	<name>aiSSEMBLE License::Example::Specific Client::Python</name>
+	<description>Example of a specific client python module</description>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<configuration>
+					<licenseFile>LICENSE</licenseFile>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.technologybrewery.habushu</groupId>
+				<artifactId>habushu-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

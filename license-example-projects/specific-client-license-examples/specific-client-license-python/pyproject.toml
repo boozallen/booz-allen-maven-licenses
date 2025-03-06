@@ -1,0 +1,20 @@
+[tool.poetry]
+
+[project]
+name = "specific-client-license-python"
+version = "1.2.2.dev"
+description = ""
+authors = [{name = "Your Name", email = "you@example.com"}]
+requires-python = "^3.11"
+dynamic = ["version", "dependencies"]
+
+[tool.poetry.dependencies]
+
+[tool.poetry.group.dev.dependencies]
+behave = "^1.2.6"
+black = ">=24.3.0"
+pylint = "^3.3.1"
+
+[build-system]
+requires = ["poetry-core >= 2.1.0"]
+build-backend = "poetry.core.masonry.api"

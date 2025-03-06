@@ -22,6 +22,7 @@ MojoHaus license-maven-plugin that is commonly used throughout industry:
 * Booz Allen Government Use Rights - can be used by the Government in the execution of a specific contract
 * Booz Allen Limited Government Use Rights - can be used by a specific organization within the Government for the
   execution of a specific contract
+* Specific Client License - can be used to simply point a specific client
 
 ## Usage
 
@@ -163,6 +164,28 @@ dynamically
             <licenseNumber>LICENSE NUMBER GRANTED BY LEGAL DEPARTMENT</licenseNumber>
         </extraTemplateParameters>
 
+        <!-- 
+          Assuming your organization in your root pom.xml file is not Booz Allen, 
+          you won't need to specify this. For this test case, it is Booz Allen, 
+          so we are overriding here: 
+      -->
+        <organizationName>CLIENT ORGANIZATION NAME</organizationName>
+    </configuration>
+</plugin>
+```
+
+#### Client Specific License
+
+Simply specify the following license name and associated parameters that will be substituted into the license
+dynamically
+
+```xml
+<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>license-maven-plugin</artifactId>
+    ...
+    <configuration>
+        <licenseName>specific-client-license</licenseName>
         <!-- 
           Assuming your organization in your root pom.xml file is not Booz Allen, 
           you won't need to specify this. For this test case, it is Booz Allen, 

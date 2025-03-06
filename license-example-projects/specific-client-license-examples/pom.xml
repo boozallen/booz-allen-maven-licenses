@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>com.boozallen.aissemble</groupId>
+		<artifactId>license-example-projects</artifactId>
+		<version>1.2.2-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>specific-client-license-examples</artifactId>
+	<packaging>pom</packaging>
+
+	<name>aiSSEMBLE License::Specific Client</name>
+	<description>Provides examples of how to use this capability on specific client license projects</description>
+
+	<modules>
+		<module>specific-client-license-java</module>
+		<module>specific-client-license-python</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<configuration>
+						<organizationName>Ministry of Magic</organizationName>
+						<licenseName>specific-client-license</licenseName>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

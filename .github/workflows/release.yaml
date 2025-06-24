@@ -53,7 +53,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-          server-id: 'ossrh'
+          server-id: 'central'
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -61,14 +61,14 @@ jobs:
 
       - name: Create settings.xml
         run: |
-          echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.SONATYPE_CENTRAL_REPO_TOKEN_USER }}</username><password>${{ secrets.SONATYPE_CENTRAL_REPO_TOKEN_KEY }}</password></server><server><id>ghcr.io</id><username>${{ secrets.GHCR_IO_USERNAME }}</username><password>${{ secrets.GHCR_IO_TOKEN }}</password></server><server><id>pypi</id><username>${{ secrets.PYPI_USERNAME }}</username><password>${{ secrets.PYPI_TOKEN }}</password></server></servers></settings>" > $HOME/.m2/settings.xml
+          echo "<settings><servers><server><id>central</id><username>${{ secrets.SONATYPE_CENTRAL_REPO_TOKEN_USER }}</username><password>${{ secrets.SONATYPE_CENTRAL_REPO_TOKEN_KEY }}</password></server><server><id>ghcr.io</id><username>${{ secrets.GHCR_IO_USERNAME }}</username><password>${{ secrets.GHCR_IO_TOKEN }}</password></server><server><id>pypi</id><username>${{ secrets.PYPI_USERNAME }}</username><password>${{ secrets.PYPI_TOKEN }}</password></server></servers></settings>" > $HOME/.m2/settings.xml
 
       - name: Release Booz Allen Licenses
         run: |
           git config --local user.email "aissemble-noreply@bah.com"
           git config --local user.name "Github Actions"
           git checkout -b ${{ inputs.releaseVersion }}-release
-          mvn -B release:clean release:prepare release:perform -Possrh-release -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} -Darguments="-Dhabushu.usePyenv=false"
+          mvn -B release:clean release:prepare release:perform -Pcentral-release -DreleaseVersion=${{ inputs.releaseVersion }} -DdevelopmentVersion=${{ inputs.developmentVersion }} -Darguments="-Dhabushu.usePyenv=false"
           mvn release:update-versions -DdevelopmentVersion=${{ inputs.developmentVersion }}
           mvn clean install -Dhabushu.usePyenv=false
           mvn scm:checkin -Dmessage=":arrow_up: push example modules to version ${{ inputs.developmentVersion }}"

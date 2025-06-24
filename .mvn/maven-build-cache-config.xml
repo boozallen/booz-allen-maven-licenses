@@ -48,7 +48,7 @@
                         <goal>deploy</goal>
                     </goals>
                 </goalsList>
-                <goalsList artifactId="nexus-staging-maven-plugin">
+                <goalsList artifactId="central-publishing-maven-plugin">
                     <goals>
                         <goal>deploy</goal>
                     </goals>
